@@ -11,6 +11,6 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-      - run: yarn test tests/
+      - run: yarn install && yarn test tests/
         env:
-          DB_URI: ${{secrets.DB_URI}}
+          DB_URI: ${{secrets.TEST_DB_URI}}
