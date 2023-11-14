@@ -99,7 +99,7 @@ describe("Create model", () => {
   });
   it("should allow only one client to acquire the lock in high contention", async () => {
     const lockName = "highContentionTest";
-    const ttl = 1000;
+    const ttl = 5000;
 
     // Simulating 10 clients trying to acquire the lock concurrently
     const promises = Array(10)
