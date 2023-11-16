@@ -1,7 +1,7 @@
 {
   "name": "mongodb-atomic-cron",
-  "version": "0.1.1",
-  "main": "index.js",
+  "version": "0.1.2",
+  "main": "src/index.ts",
   "license": "MIT",
   "dependencies": {
     "config": "^3.3.9",

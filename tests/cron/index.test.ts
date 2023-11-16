@@ -32,7 +32,7 @@ describe("Test Cron Job", () => {
 
   it("should increment a counter every second when there is one client", async () => {
     const lockName = "singleClientCronJob";
-    const lockTtl = 1000;
+    const lockTtl = 2500;
 
     let fencingToken = undefined;
     let counter = 0;
@@ -48,7 +48,7 @@ describe("Test Cron Job", () => {
         lockName,
         lockTtl,
       },
-      handler,
+      handler
     );
 
     await new Promise((resolve) => setTimeout(resolve, 5500));
@@ -68,7 +68,7 @@ describe("Test Cron Job", () => {
     expect(counter).toBe(5);
   }, 10000);
 
-  it("should increment the counter twice, even if it get's stuck in the handler", async () => {
+  it("should increment the counter twice, even if it gets stuck in the handler", async () => {
     const lockName = "singleClientCronJobWithTimeout";
     const lockTtl = 1000;
 
@@ -91,16 +91,16 @@ describe("Test Cron Job", () => {
           await new Promise((resolve) => setTimeout(resolve, 3000));
           console.log("Unstuck!");
         }
-      },
+      }
     );
 
     /*
-    The first call will be 2 seconds after the cron job is scheduled
+    The first call will be 2 seconds after the cron job is scheduled and it will be stuck, but counter = 1 and fencingToken = 0
     On the 3rd second, the lock will expire and thus can be acquired again
-    The second call will be 4 seconds after the cron job is scheduled
-    Since there is a timeout for 5 seconds, the cron job will be stopped before the third call
+    The second call will be 4 seconds after the cron job is scheduled but the lock will be able to be acquired as lock has expired
+    Since there is a timeout for 5.75 seconds, the cron job will be stopped before the third call
     */
-    await new Promise((resolve) => setTimeout(resolve, 5000));
+    await new Promise((resolve) => setTimeout(resolve, 5750));
 
     task.stop();
 
@@ -133,7 +133,7 @@ describe("Test Cron Job", () => {
           if (lock.fencingToken === 0) {
             await new Promise((resolve) => setTimeout(resolve, 2500));
           }
-        },
+        }
       );
 
       cronJobs.push(cronJob);
