@@ -5,6 +5,7 @@
   "license": "MIT",
   "dependencies": {
     "config": "^3.3.9",
+    "eslint-plugin-prettier": "^5.0.1",
     "mongoose": "^8.0.0",
     "node-cron": "^3.0.2"
   },
@@ -23,8 +24,13 @@
     "@types/express": "^4.17.20",
     "@types/jest": "^29.5.7",
     "@types/node-cron": "^3.0.10",
+    "@typescript-eslint/eslint-plugin": "^6.11.0",
+    "@typescript-eslint/parser": "^6.11.0",
     "cross-env": "^7.0.3",
     "eslint": "^8.53.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-import": "^2.29.0",
     "husky": "^8.0.0",
     "jest": "^29.7.0",
     "lint-staged": "^15.1.0",
@@ -35,7 +41,6 @@
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.2.2"
   },
-  "publishConfig": {
-    "@rawmarshmellows:registry": "https://npm.pkg.github.com"
-  }
+  "repository": "git@github.com:rawmarshmellows/mongodb-cron.git",
+  "author": "rawmarshmellows@gmail.com"
 }

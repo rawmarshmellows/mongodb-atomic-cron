@@ -1,3 +1,4 @@
+/* eslint-disable */
 import config from "config";
 import { MongoDBCron } from "../../src";
 
@@ -13,7 +14,7 @@ describe("Test Cron Job", () => {
     await mongodbCron.connection.close().then();
   });
 
-  it("should increment a counter every second", (done) => {
+  it("should increment a counter every second", async () => {
     let counter = 0;
     const handler = () => {
       counter += 1;
@@ -23,11 +24,10 @@ describe("Test Cron Job", () => {
     const job = mongodbCron.scheduleCronJob("* * * * * *", handler);
 
     // Set a timeout to stop the cron job after 5 seconds
-    setTimeout(() => {
-      job.stop(); // Stop the cron job
-      expect(counter).toBe(4); // Expect the counter to have been incremented
-      done(); // Complete the test
-    }, 5000);
+    await new Promise((resolve) => setTimeout(resolve, 5000));
+
+    job.stop(); // Stop the cron job
+    expect(counter).toBe(4); // Expect the counter to have been incremented
   }, 10000);
 
   it("should increment a counter every second when there is one client", async () => {
@@ -48,7 +48,7 @@ describe("Test Cron Job", () => {
         lockName,
         lockTtl,
       },
-      handler
+      handler,
     );
 
     await new Promise((resolve) => setTimeout(resolve, 5500));
@@ -91,7 +91,7 @@ describe("Test Cron Job", () => {
           await new Promise((resolve) => setTimeout(resolve, 3000));
           console.log("Unstuck!");
         }
-      }
+      },
     );
 
     /*
@@ -133,7 +133,7 @@ describe("Test Cron Job", () => {
           if (lock.fencingToken === 0) {
             await new Promise((resolve) => setTimeout(resolve, 2500));
           }
-        }
+        },
       );
 
       cronJobs.push(cronJob);
